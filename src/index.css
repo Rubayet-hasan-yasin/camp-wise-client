@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+p, h1, h2, h3, h4, h5, h6{
+    @apply text-gray-800 dark:text-white
+}
+
+
+
+.active{
+    @apply py-4 px-2 text-green-500 dark:text-gray-300 border-b-4 border-green-500 dark:border-green-300 font-semibold 
+}
+
+.default{
+    @apply py-4 px-2 text-gray-500 dark:text-gray-400 font-semibold hover:text-green-500 transition duration-300
+}
