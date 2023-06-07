@@ -87,10 +87,10 @@ const Navbar = () => {
 
         <li>
             {user ?
-                <button className='ml-12 py-3 px-7 bg-[#F9A51A] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Log out</button>
+                <button className='ml-12 py-3 px-7 bg-[#EA906C] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Log out</button>
                 :
                 <Link to={'/login'}>
-                    <button className='ml-12 py-3 px-7 bg-[#F9A51A] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Login</button>
+                    <button className='ml-12 py-3 px-7 bg-[#EA906C] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Login</button>
                 </Link>
             }
         </li>
@@ -111,7 +111,7 @@ const Navbar = () => {
 
 
                     <ul className='space-x-8 hidden md:flex md:items-center'>
-                        <div onClick={handleDarkTheme} className="bg-orange-200 dark:bg-orange-800 p-2 rounded-full">
+                        <div onClick={handleDarkTheme} className="bg-orange-200 dark:bg-orange-600 p-2 rounded-full">
                             {isDark ?
                                 <BsSun size={20}/>
                                 :
