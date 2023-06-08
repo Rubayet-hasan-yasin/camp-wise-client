@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <footer className="bg-base-200 dark:bg-gray-800">
+        <footer className="bg-base-200 py-10 dark:bg-gray-800">
             <div className="footer container px-4 mx-auto text-base-content">
                 <div>
                     <Link to={'/'}>
@@ -50,7 +50,7 @@ const Footer = () => {
                     <li className="link link-hover">Cookie Policy</li>
                 </ul>
             </div>
-            <div className="text-center pb-5">
+            <div className="text-center">
                 <p>Copyright © 2023 - All right reserved by Camp Wise Academy Ltd</p>
             </div>
         </footer>

@@ -7,7 +7,7 @@ import { BsMoon, BsSun } from "react-icons/bs";
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isDark, setIsDark] = useState(false);
-    const user = true
+    const user = false
 
 
     useEffect(() => {
