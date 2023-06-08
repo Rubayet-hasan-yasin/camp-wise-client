@@ -50,6 +50,7 @@ const Footer = () => {
                     <li className="link link-hover">Cookie Policy</li>
                 </ul>
             </div>
+            <hr  className="mb-5 mt-8 w-[90%] mx-auto"/>
             <div className="text-center">
                 <p>Copyright © 2023 - All right reserved by Camp Wise Academy Ltd</p>
             </div>
