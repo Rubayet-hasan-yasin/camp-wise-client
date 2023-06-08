@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FaEye } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignUpButton from '../../components/Shared/signUpButton/signUpButton';
 import axios from 'axios';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { updateProfile } from 'firebase/auth';
 
 
 const SignUp = () => {
     const [passShow, setPassShow] = useState(false);
+    const {registerWithEmailAndPassword} = useContext(AuthContext);
+    const navigate = useNavigate()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
@@ -22,21 +26,49 @@ const SignUp = () => {
             return;
         }
 
+
+        //image upload 
+
         const image = data.photo[0];
         const formData = new FormData();
         formData.append('image', image)
 
         axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_KEY}`, formData)
         .then(res=> {
-            console.log(res.data.data.display_url)
+            
             const imgURL = res.data.data.display_url;
+
+            //create user
+            registerWithEmailAndPassword(data.email, data.password)
+            .then(result=> {
+                const user = result.user;
+                updateProfile(user, {
+                    displayName: data.name, photoURL: imgURL
+                  }).then(() => {
+                    // Profile updated!
+                    toast.success("Registration Successful!")
+                    reset()
+                    navigate('/')
+
+                  }).catch((error) => {
+                    // An error occurred
+                    toast.error(error.message);
+                  });
+                
+            })
+            .catch(err=>{
+                const error = err.message;
+                toast.error(error);
+            })
+
+
         })
         .catch(err=>{
             console.log(err.message);
             toast.error(err.message)
         })
 
-        console.log(image);
+        
 
     };
 
@@ -120,7 +152,7 @@ const SignUp = () => {
                                 </div>
 
 
-                                <div className='space-x-5 text-sm pb-2'>
+                                {/* <div className='space-x-5 text-sm pb-2'>
                                     <label className='text-sm block mb-2'>Gender</label>
 
                                     <label className='items-center gap-1 inline-flex'><input type="radio" {...register("gender", { required: true })} name="gender" className="radio w-4 h-4 outline-offset-0 outline-none" value={'Male'} /> Male </label>
@@ -152,7 +184,7 @@ const SignUp = () => {
                                         {...register("address", { required: true })}
                                         name="address" id="" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
 
-                                </div>
+                                </div> */}
 
                                 <div className="relative">
                                     <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1 w-full">SignUp</button>

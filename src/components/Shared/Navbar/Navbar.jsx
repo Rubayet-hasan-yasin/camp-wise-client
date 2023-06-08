@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaCampground } from "react-icons/fa";
 import { BsMoon, BsSun } from "react-icons/bs";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import { toast } from "react-hot-toast";
 
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isDark, setIsDark] = useState(false);
-    const user = false
+    const {user, logOut} = useContext(AuthContext);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -27,6 +30,15 @@ const Navbar = () => {
     const handleMobileMenuToggle = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+
+
+    const handleLogOut = ()=>{
+        logOut()
+        .then(()=>{
+            toast.success('LogOut succesfull')
+            navigate('/')
+        })
+    }
 
     const list = <>
         <li>
@@ -87,7 +99,7 @@ const Navbar = () => {
 
         <li>
             {user ?
-                <button className='ml-12 py-3 px-7 bg-[#EA906C] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Log out</button>
+                <button onClick={handleLogOut} className='ml-12 py-3 px-7 bg-[#EA906C] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Log out</button>
                 :
                 <Link to={'/login'}>
                     <button className='ml-12 py-3 px-7 bg-[#EA906C] rounded-lg shadow-md hover:bg-[#f9a31ac5] hover:ring-1'>Login</button>

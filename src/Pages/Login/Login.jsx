@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import animation from "../../assets/login-icon.json"
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
     const [passShow, setPassShow] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const {loginWithEmailAndPassword} = useContext(AuthContext);
+    const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
 
     const onSubmit = data => {
-        console.log(data)
+        const email = data.email;
+        const password = data.password;
+
+
+        loginWithEmailAndPassword(email, password)
+        .then(()=>{
+            toast.success('login successfull')
+            reset()
+        })
+        .catch(err=> toast.error(err.message))
 
     };
 
@@ -79,7 +91,7 @@ const Login = () => {
                                     </p>
                                 )}
 
-                                <p>Don&apos;t have an account ? <Link to={'/signup'} className="text-blue-600 font-bold">Sign up</Link></p>
+                                <p className="dark:text-gray-800">Don&apos;t have an account ? <Link to={'/signup'} className="text-blue-600 font-bold">Sign up</Link></p>
                             </div>
                         </div>
                     </div>
