@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import animation from "../../assets/login-icon.json"
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 const Login = () => {
     const [passShow, setPassShow] = useState(false);
     const {loginWithEmailAndPassword} = useContext(AuthContext);
+    const navigate = useNavigate();
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
 
 
@@ -22,6 +23,7 @@ const Login = () => {
         .then(()=>{
             toast.success('login successfull')
             reset()
+            navigate('/')
         })
         .catch(err=> toast.error(err.message))
 
