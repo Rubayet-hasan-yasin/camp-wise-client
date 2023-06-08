@@ -44,9 +44,9 @@ const PopularClass = () => {
         <section className="popular-classes  dark:bg-transparent py-10 my-20">
             <div className="container mx-auto px-4">
                 <h2 className="text-5xl font-bold mb-6 text-center">Popular Art and Craft Classes</h2>
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-                    {classes.map((item) => (
-                        <div className="card-body border rounded-xl" key={item.id}>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    {classes.map((item, i) => (
+                        <div className="card-body border rounded-xl" key={i}>
                             <figure className="h-72">
                                 <img src={item.image} alt={item.image} className="object-cover w-full h-full" />
                             </figure>
