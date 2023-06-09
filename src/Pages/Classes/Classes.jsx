@@ -1,14 +1,13 @@
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import Card from "./card";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 
 const Classes = () => {
-
     const {user} = useContext(AuthContext);
-    const navigate = useNavigate();
+
+
 
 
     // useEffect(() => {
@@ -20,38 +19,17 @@ const Classes = () => {
     // }, [])
 
 
-    const {data: classes=[], refetch} = useQuery({
-        queryKey: ['classes'],
-        queryFn: async()=>{
-            const res =await axios('http://localhost:5000/classes')
-            return res.data;
+    const { data, refetch } = useQuery({
+        queryKey: ['classes', 'selected'],
+        enabled: !!user,
+        queryFn: async () => {
+            const classes = await axios('http://localhost:5000/classes');
+            const selectedClasses = await axios(`http://localhost:5000/selected-class?email=${user.email}`);
+
+            return { classes: classes.data, selectedClasses: selectedClasses.data }
         }
     })
 
-   
-
-
-    const handleSelectButton = ()=>{
-        if(!user){
-            Swal.fire({
-                title: 'log in before selecting the course',
-                
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Login!'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  navigate('/login')
-                }
-              })
-        }
-
-
-
-
-    }
 
 
     return (
@@ -59,20 +37,12 @@ const Classes = () => {
             <div className="grid grid-cols-3 gap-10">
 
                 {
-                    classes.map((clas, i) => <div key={i} className={`${clas.availableSeats == 0 && "bg-red-600 dark:bg-red-600"} card w-96 bg-base-100 dark:bg-transparent dark:border border shadow-xl`}>
-                        <figure className="h-64">
-                            <img src={clas.classImage} alt="profile" className="object-cover w-full" />
-                        </figure>
-                        <div className="card-body">
-                            <h2 className="card-title text-3xl">{clas.className}</h2>
-                            <p>Instructor: {clas.name}</p>
-                            <p>Available seats: {clas.availableSeats}</p>
-                            <p>Fee: ${clas.price}</p>
-                            <div className="card-actions justify-end">
-                                <button onClick={handleSelectButton} disabled={clas.availableSeats == 0} className="btn btn-sm">Select</button>
-                            </div>
-                        </div>
-                    </div>)
+                    data?.classes.map((clas, i) => <Card
+                        key={i}
+                        clas={clas}
+                        data={data}
+                        refetch={refetch}
+                    />)
                 }
 
 
