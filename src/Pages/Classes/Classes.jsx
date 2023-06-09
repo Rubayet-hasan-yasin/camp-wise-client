@@ -1,8 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
     const [instructor, setInstructor] = useState([])
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -12,6 +17,26 @@ const Classes = () => {
                 setInstructor(res.data)
             })
     }, [])
+
+
+    const handleEnrollButton = ()=>{
+        if(!user){
+            Swal.fire({
+                title: 'log in before selecting the course',
+                
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate('/login')
+                }
+              })
+        }
+
+    }
 
 
     return (
@@ -29,7 +54,7 @@ const Classes = () => {
                             <p>Available seats: {clas.availableSeats}</p>
                             <p>Fee: ${clas.price}</p>
                             <div className="card-actions justify-end">
-                                <button disabled={clas.availableSeats == 0} className="btn btn-sm">Enroll</button>
+                                <button onClick={handleEnrollButton} disabled={clas.availableSeats == 0} className="btn btn-sm">Enroll</button>
                             </div>
                         </div>
                     </div>)

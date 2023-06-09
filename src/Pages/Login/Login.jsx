@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-hot-toast";
 
+import SignUpButton from "../../components/Shared/signUpButton/SignUpButton";
+
 const Login = () => {
     const [passShow, setPassShow] = useState(false);
     const {loginWithEmailAndPassword} = useContext(AuthContext);
@@ -79,7 +81,7 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="relative">
-                                        <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1">Login</button>
+                                        <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1 w-full">Login</button>
                                     </div>
                                 </form >
 
@@ -93,8 +95,12 @@ const Login = () => {
                                     </p>
                                 )}
 
-                                <p className="dark:text-gray-800">Don&apos;t have an account ? <Link to={'/signup'} className="text-blue-600 font-bold">Sign up</Link></p>
+                                <p className="dark:text-gray-800 mb-6">Don&apos;t have an account ? <Link to={'/signup'} className="text-blue-600 font-bold">Sign up</Link></p>
+
+
                             </div>
+
+                            <SignUpButton/>
                         </div>
                     </div>
                 </div>

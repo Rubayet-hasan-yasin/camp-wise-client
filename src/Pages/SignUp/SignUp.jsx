@@ -11,7 +11,7 @@ import { updateProfile } from 'firebase/auth';
 
 const SignUp = () => {
     const [passShow, setPassShow] = useState(false);
-    const {registerWithEmailAndPassword} = useContext(AuthContext);
+    const { registerWithEmailAndPassword } = useContext(AuthContext);
     const navigate = useNavigate()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -34,41 +34,41 @@ const SignUp = () => {
         formData.append('image', image)
 
         axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_KEY}`, formData)
-        .then(res=> {
-            
-            const imgURL = res.data.data.display_url;
+            .then(res => {
 
-            //create user
-            registerWithEmailAndPassword(data.email, data.password)
-            .then(result=> {
-                const user = result.user;
-                updateProfile(user, {
-                    displayName: data.name, photoURL: imgURL
-                  }).then(() => {
-                    // Profile updated!
-                    toast.success("Registration Successful!")
-                    reset()
-                    navigate('/')
+                const imgURL = res.data.data.display_url;
 
-                  }).catch((error) => {
-                    // An error occurred
-                    toast.error(error.message);
-                  });
-                
+                //create user
+                registerWithEmailAndPassword(data.email, data.password)
+                    .then(result => {
+                        const user = result.user;
+                        updateProfile(user, {
+                            displayName: data.name, photoURL: imgURL
+                        }).then(() => {
+                            // Profile updated!
+                            toast.success("Registration Successful!")
+                            reset()
+                            navigate('/')
+
+                        }).catch((error) => {
+                            // An error occurred
+                            toast.error(error.message);
+                        });
+
+                    })
+                    .catch(err => {
+                        const error = err.message;
+                        toast.error(error);
+                    })
+
+
             })
-            .catch(err=>{
-                const error = err.message;
-                toast.error(error);
+            .catch(err => {
+                console.log(err.message);
+                toast.error(err.message)
             })
 
 
-        })
-        .catch(err=>{
-            console.log(err.message);
-            toast.error(err.message)
-        })
-
-        
 
     };
 
@@ -204,11 +204,7 @@ const SignUp = () => {
                                 <p className="dark:text-red-500 text-red-500 mt-1">Phone Number must be a 5-15 digit number</p>
                             )}
 
-
-
-                            <SignUpButton />
-
-                            <p className='px-6 text-sm text-center dark:text-gray-800 text-gray-400'>
+                            <p className='px-6 mb-6 text-sm text-center dark:text-gray-800 text-gray-400'>
                                 Already have an account?{' '}
                                 <Link
                                     to='/login'
@@ -216,9 +212,10 @@ const SignUp = () => {
                                 >
                                     Login
                                 </Link>
-                                .
                             </p>
                         </div>
+
+                        <SignUpButton />
                     </div>
                 </div>
             </div>
