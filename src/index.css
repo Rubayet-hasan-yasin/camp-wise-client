@@ -15,3 +15,10 @@ p, h1, h2, h3, h4, h5, h6{
 .default{
     @apply py-4 px-2 text-gray-500 dark:text-gray-400 font-semibold hover:text-green-500 transition duration-300
 }
+.D-Active{
+    @apply py-4 px-2 text-green-500 dark:text-gray-900 border-b-4 border-green-500 dark:border-green-500 font-semibold 
+}
+
+.D-Default{
+    @apply py-4 px-2 bg-base-300 text-gray-500 dark:text-gray-900 font-semibold hover:text-green-500 transition duration-300
+}
