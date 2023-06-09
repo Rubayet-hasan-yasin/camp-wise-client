@@ -2,8 +2,9 @@
 import { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { Result } from "postcss";
+
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -11,6 +12,7 @@ import { toast } from "react-hot-toast";
 
 const SignUpButton = () => {
     const {googleSignIn} = useContext(AuthContext);
+    const navigate = useNavigate();
 
 
     const handleGoogle = ()=> {
@@ -18,6 +20,7 @@ const SignUpButton = () => {
         googleSignIn()
         .then(()=>{
             toast.success('Login successfull')
+            navigate('/')
         })
         .catch(err=>{
             toast.error(err.message)

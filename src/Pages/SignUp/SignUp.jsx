@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { FaEye } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import SignUpButton from '../../components/Shared/signUpButton/signUpButton';
 import axios from 'axios';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
+import SignUpButton from '../../components/Shared/signUpButton/SignUpButton';
 
 
 const SignUp = () => {
