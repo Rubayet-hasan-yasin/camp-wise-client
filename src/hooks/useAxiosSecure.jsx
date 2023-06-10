@@ -24,17 +24,19 @@ const useAxiosSecure = () => {
 
         axiosSecure.interceptors.response.use(
             response => response,
-            error =>{
-                if(error){
-                    console.log("error From axiossecure",error);
-                    toast.error('error toast form axios secure')
+            async error =>{
+                if(error.response && (error.response.status === 401 || error.response.status === 403)){
+                    toast.error(error.response.data.message)
+                    await logOut()
+                    navigate('/')
                 }
             }
         )
 
 
-    },[])
+    },[logOut, navigate])
     
+    return [axiosSecure]
 };
 
 export default useAxiosSecure;

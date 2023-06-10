@@ -1,15 +1,11 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Card from "./card";
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+
+
 
 const Classes = () => {
-    const {user} = useContext(AuthContext);
-
-
-
-
+    
     // useEffect(() => {
     //     axios.get('http://localhost:5000/classes')
     //         .then(res => {
@@ -19,14 +15,15 @@ const Classes = () => {
     // }, [])
 
 
-    const { data, refetch } = useQuery({
+    const { data: classes=[] } = useQuery({
         queryKey: ['classes', 'selected'],
-        enabled: !!user,
         queryFn: async () => {
             const classes = await axios('http://localhost:5000/classes');
-            const selectedClasses = await axios(`http://localhost:5000/selected-class?email=${user.email}`);
+            // const selectedClasses = await axios(`http://localhost:5000/selected-class?email=${user.email}`);
 
-            return { classes: classes.data, selectedClasses: selectedClasses.data }
+           
+
+            return classes.data;
         }
     })
 
@@ -37,11 +34,9 @@ const Classes = () => {
             <div className="grid grid-cols-3 gap-10">
 
                 {
-                    data?.classes.map((clas, i) => <Card
+                    classes.map((clas, i) => <Card
                         key={i}
                         clas={clas}
-                        data={data}
-                        refetch={refetch}
                     />)
                 }
 

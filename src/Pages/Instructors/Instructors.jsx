@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+
 const Instructors = () => {
-    const [instructor, setInstructor] = useState([])
+    const [instructor, setInstructor] = useState([]);
+    
 
 
     useEffect(() => {

@@ -4,9 +4,11 @@ const Dashboard = () => {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content relative">
+            <div className="drawer-content relative mx-auto my-10">
                 {/* Page content here */}
-                <Outlet/>
+                
+                    <Outlet/>
+                
                 <label htmlFor="my-drawer-2" className=" w-fit absolute right-0 top-0 bg-orange-300 p-2 hover:bg-orange-100 rounded-full mr-7 mt-5 drawer-button lg:hidden"><BsMenuButtonWideFill /></label>
 
             </div>

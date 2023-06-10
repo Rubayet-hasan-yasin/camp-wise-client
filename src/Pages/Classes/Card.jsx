@@ -4,10 +4,32 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 
-const Card = ({ clas, data, refetch }) => {
+const Card = ({ clas }) => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+
+
+    const { data: selectedClasses=[], refetch } = useQuery({
+        queryKey: ['selected'],
+        enabled: !!user,
+        queryFn: async () => {
+            
+            const selectedClasses = await axios(`http://localhost:5000/selected-class?email=${user.email}`);
+
+            
+
+            return selectedClasses.data;
+        }
+    })
+
+
+    const exist = selectedClasses.find(select=> select.classId == clas._id);
+
+    
+console.log(exist);
+
 
 
     const handleSelectButton = () => {
@@ -25,7 +47,7 @@ const Card = ({ clas, data, refetch }) => {
                     navigate('/login')
                 }
             })
-            //   return
+              return
         }
 
         const selectedClass = {
@@ -39,14 +61,14 @@ const Card = ({ clas, data, refetch }) => {
             price: clas.price,
             classImage: clas.classImage,
             classId: clas._id
-            
+
         }
 
 
         axios.post(`http://localhost:5000/selected-classes`, selectedClass)
             .then(res => {
                 console.log(res.data);
-                if(res.data.acknowledged == true){
+                if (res.data.acknowledged == true) {
                     toast.success(`successfully selected ${clas.className}`)
                     refetch()
                 }
@@ -55,8 +77,8 @@ const Card = ({ clas, data, refetch }) => {
 
     }
 
-    const exist = data.selectedClasses.find(select=> select.classId == clas._id);
-    
+
+
 
 
     return (
