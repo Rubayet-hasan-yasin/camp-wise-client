@@ -1,8 +1,12 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
+
+
 
 const Card = ({ selectedClass, selectedClassRefetch }) => {
     const [axiosSecure] = useAxiosSecure();
+
 
     const handleDeleteClass = id => {
         Swal.fire({
@@ -49,7 +53,11 @@ const Card = ({ selectedClass, selectedClassRefetch }) => {
                     <p>Fee: ${selectedClass.price}</p>
                     <div className="card-actions justify-end">
                         <button onClick={() => handleDeleteClass(selectedClass._id)} className="btn btn-sm">Delete</button>
-                        <button className="btn btn-sm btn-primary">Pay</button>
+                        <Link to={`/dashboard/payment/${selectedClass._id}`}>
+                            <button className="btn btn-sm btn-primary">Pay</button>
+                        </Link>
+
+
                     </div>
                 </div>
             </div>
