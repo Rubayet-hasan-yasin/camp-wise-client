@@ -9,8 +9,10 @@ import { toast } from "react-hot-toast";
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isDark, setIsDark] = useState(false);
-    const {user, logOut} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    // console.log(user);
 
 
     useEffect(() => {
@@ -32,12 +34,12 @@ const Navbar = () => {
     };
 
 
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         logOut()
-        .then(()=>{
-            toast.success('LogOut succesfull')
-            navigate('/')
-        })
+            .then(() => {
+                toast.success('LogOut succesfull')
+                navigate('/')
+            })
     }
 
     const list = <>
@@ -88,6 +90,7 @@ const Navbar = () => {
                         <img
 
                             src={user?.photoURL || 'https://i.ibb.co/vhHRv1N/154901-OV13-M5-460-ai.png'}
+                            referrerPolicy="no-referrer"
                             className="object-cover w-12" />
                     </div>
                 </li>
@@ -125,7 +128,7 @@ const Navbar = () => {
                     <ul className='space-x-8 hidden md:flex md:items-center'>
                         <div onClick={handleDarkTheme} className="bg-orange-200 dark:bg-orange-600 p-2 rounded-full">
                             {isDark ?
-                                <BsSun size={20}/>
+                                <BsSun size={20} />
                                 :
                                 <BsMoon size={20} />
                             }
