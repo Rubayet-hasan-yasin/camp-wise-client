@@ -2,10 +2,13 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { toast } from "react-hot-toast";
+import './CheckOutForm.css'
+import { useNavigate } from "react-router-dom";
 
 
 
-const CheckoutForm = ({ price }) => {
+const CheckoutForm = ({ price, data }) => {
     const stripe = useStripe();
     const element = useElements();
     const { user } = useContext(AuthContext);
@@ -14,6 +17,7 @@ const CheckoutForm = ({ price }) => {
     const [clientSecret, setClientSecret] = useState('');
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState(null);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -78,6 +82,28 @@ const CheckoutForm = ({ price }) => {
         if(paymentIntent.status === 'succeeded'){
          
             setTransactionId(paymentIntent.id)
+            //save payment information to the server
+            const payment = {
+                name: user.displayName,
+                email: user.email,
+                transactionId,
+                price,
+                selectedClassId: data._id,
+                classesId: data.classId,
+                classImage: data.classImage,
+                className: data.className,
+                date: new Date,
+                instructorName: data.instructorName,
+            }
+
+            axiosSecure.post('/payments', payment)
+            .then(res=>{
+                console.log(res.data)
+                if(res.data.insertResult.insertedId){
+                    toast.success('payment successfully')
+                    navigate('/dashboard/selected-classes')
+                }
+            })
         }
 
     }
@@ -85,7 +111,7 @@ const CheckoutForm = ({ price }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="mt-10">
+            <form onSubmit={handleSubmit} className="mt-1">
                 <CardElement
                     options={{
                         style: {

@@ -16,18 +16,15 @@ const Classes = () => {
 
 
     const { data: classes=[] } = useQuery({
-        queryKey: ['classes', 'selected'],
+        queryKey: ['classes'],
         queryFn: async () => {
             const classes = await axios('http://localhost:5000/classes');
-            // const selectedClasses = await axios(`http://localhost:5000/selected-class?email=${user.email}`);
 
-           
+        
 
             return classes.data;
         }
     })
-
-
 
     return (
         <section className="container mx-auto my-20 px-4">
