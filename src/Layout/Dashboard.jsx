@@ -26,10 +26,10 @@ const Dashboard = () => {
                     </li>
                     <li>
                         <NavLink
-                            to={'/dashboard/selected-class'}
+                            to={'/dashboard/my-classes'}
                             className={({isActive})=> (isActive ? 'D-Active': 'D-Default')}
                         >
-                            Selected Classes
+                            My Classes
                         </NavLink>
                     </li>
                     

@@ -9,7 +9,7 @@ const SelectedClasses = () => {
     const [axiosSecure] = useAxiosSecure();
 
 
-    const { data: selectedClasses = [] } = useQuery({
+    const { data: selectedClasses = [], refetch: selectedClassRefetch } = useQuery({
         queryKey: ['selected'],
         enabled: !!user,
         queryFn: async () => {
@@ -28,6 +28,7 @@ const SelectedClasses = () => {
                 selectedClasses.map(select => <Card
                     key={select._id}
                     selectedClass={select}
+                    selectedClassRefetch={selectedClassRefetch}
                 ></Card>)
             }
         </div>
