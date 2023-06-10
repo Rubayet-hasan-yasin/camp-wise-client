@@ -27,8 +27,8 @@ const Classes = () => {
     })
 
     return (
-        <section className="container mx-auto my-20 px-4">
-            <div className="grid grid-cols-3 gap-10">
+        <section className="container mx-auto my-20 md:px-4">
+            <div className="grid md:grid-cols-3 gap-10">
 
                 {
                     classes.map((clas, i) => <Card

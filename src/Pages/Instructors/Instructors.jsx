@@ -18,8 +18,8 @@ const Instructors = () => {
     console.log();
 
     return (
-        <section className="container mx-auto my-20 px-4">
-            <div className="grid grid-cols-3 gap-10">
+        <section className="container mx-auto my-20 md:px-4">
+            <div className="grid md:grid-cols-3 gap-10">
 
                 {
                     instructor.map((ins, i) => <div key={i} className="card w-96 bg-base-100 dark:bg-transparent dark:border border shadow-xl">
