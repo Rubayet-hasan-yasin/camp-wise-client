@@ -28,7 +28,7 @@ const Card = ({ clas }) => {
     const exist = selectedClasses.find(select=> select.classId == clas._id);
 
     
-console.log(exist);
+
 
 
 

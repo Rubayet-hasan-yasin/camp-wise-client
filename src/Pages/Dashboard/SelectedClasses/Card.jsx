@@ -54,7 +54,7 @@ const Card = ({ selectedClass, selectedClassRefetch }) => {
                     <div className="card-actions justify-end">
                         <button onClick={() => handleDeleteClass(selectedClass._id)} className="btn btn-sm">Delete</button>
                         <Link to={`/dashboard/payment/${selectedClass._id}`}>
-                            <button className="btn btn-sm btn-primary">Pay</button>
+                            <button className="btn btn-sm btn-primary">Enroll</button>
                         </Link>
 
 
