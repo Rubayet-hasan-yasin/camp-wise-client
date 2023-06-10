@@ -30,6 +30,7 @@ const useAxiosSecure = () => {
                     await logOut()
                     navigate('/')
                 }
+                return Promise.reject(error);
             }
         )
 
