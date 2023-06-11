@@ -21,8 +21,8 @@ const AddClass = () => {
                     name: data.name,
                     email: data.email,
                     className: data.className,
-                    availableSeats: data.availableSeats,
-                    price: data.price,
+                    availableSeats: parseInt(data.availableSeats),
+                    price: parseInt(data.price),
                     students: 0,
                     status: 'pending',
                     classImage: image
@@ -94,7 +94,7 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Price</span>
                             </label>
-                            <input type="text" {...register("price", { required: true, pattern: /^\d+(\.\d{1,2})?$/ })} placeholder="Price" className="input input-bordered" />
+                            <input type="text" {...register("price", { required: true, pattern: /^[0-9]+$/ })} placeholder="Price" className="input input-bordered" />
                         </div>
                     </div>
 

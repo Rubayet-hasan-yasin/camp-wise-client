@@ -66,6 +66,14 @@ const Dashboard = () => {
                                     Add class
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink
+                                    to={'/dashboard/instructor/my-classes'}
+                                    className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
+                                >
+                                    My class
+                                </NavLink>
+                            </li>
                         </>
                     }
 
