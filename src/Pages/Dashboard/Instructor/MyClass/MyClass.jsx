@@ -47,12 +47,16 @@ const MyClass = () => {
                                         <p>Price: ${clas.price}</p>
 
                                         {/* TODO: feedbak from admin */}
-                                        
+
                                         <div className="card-actions justify-end">
-                                            <button onClick={()=>setIsOpen(true)} className="btn btn-primary">Update</button>
+                                            <button onClick={() => setIsOpen(true)} className="btn btn-primary">Update</button>
                                         </div>
 
-                                        <ClassUpdateModal isOpen={isOpen} setIsOpen={setIsOpen}/>
+                                        <ClassUpdateModal
+                                            isOpen={isOpen}
+                                            setIsOpen={setIsOpen}
+                                            classData={clas}
+                                        />
                                     </div>
                                 </div>
 

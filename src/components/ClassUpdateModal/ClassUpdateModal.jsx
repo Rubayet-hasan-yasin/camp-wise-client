@@ -1,13 +1,48 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
+import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../Provider/AuthProvider';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { toast } from 'react-hot-toast';
 
 
-const ClassUpdateModal = ({ isOpen, setIsOpen }) => {
+
+const ClassUpdateModal = ({ isOpen, setIsOpen, classData }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const {user} = useContext(AuthContext);
+    const [axiosSecure] = useAxiosSecure();
+    
+
+    
+
+    const onSubmit = data => {
+        // console.log(data);
+
+        const updateClassData = {
+            className: data.className,
+            availableSeats: parseInt(data.availableSeats),
+            price: parseInt(data.price)
+        }
+
+        
+        axiosSecure.patch(`/instructor/update-class/${classData._id}`, updateClassData)
+        .then(res=> {
+            console.log(res);
+            if(res.data.acknowledged){
+                toast.success('succesfully updated')
+                setIsOpen(false)
+            }
+        })
+    }
+
+// console.log('classData',classData);
+
+
     return (
         <>
 
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
+                <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -31,29 +66,81 @@ const ClassUpdateModal = ({ isOpen, setIsOpen }) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-fit transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     >
-                                        Payment successful
+                                        Update Class
                                     </Dialog.Title>
-                                    <div className="mt-2">
-                                        <p className="text-sm text-gray-500">
-                                            Your payment has been successfully submitted. We’ve sent
-                                            you an email with all of the details of your order.
-                                        </p>
-                                    </div>
 
-                                    <div className="mt-4">
-                                        <button
-                                            type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                            onClick={()=>setIsOpen(false)}
-                                        >
-                                            Got it, thanks!
-                                        </button>
-                                    </div>
+                                    
+
+                                        <form onSubmit={handleSubmit(onSubmit)} className="card md:mt-7 flex-shrink-0 w-[50vw] shadow-2xl bg-base-100 ">
+                                            <div className="card-body">
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <span className="label-text">Class Name</span>
+                                                    </label>
+                                                    <input defaultValue={classData.className} type="text" {...register("className", { required: true })} placeholder="Class Name" className="input input-bordered" />
+                                                </div>
+
+                                                <div className="flex gap-4">
+                                                    <div className="form-control w-full">
+                                                        <label className="label">
+                                                            <span className="label-text">Instructor Name</span>
+                                                        </label>
+                                                        <input {...register("name", { required: true })} defaultValue={user.displayName} type="text" placeholder="Instructor name" className="input input-bordered" readOnly />
+                                                    </div>
+
+                                                    <div className="form-control w-full">
+                                                        <label className="label">
+                                                            <span className="label-text">Instructor Email</span>
+                                                        </label>
+                                                        <input {...register("email", { required: true })} defaultValue={user.email} type="text" placeholder="Instructor name" className="input input-bordered" readOnly />
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex gap-4">
+                                                    <div className="form-control w-full">
+                                                        <label className="label">
+                                                            <span className="label-text">Available seats</span>
+                                                        </label>
+                                                        <input defaultValue={classData.availableSeats} type="text" {...register("availableSeats", { required: true, pattern: /^[0-9]+$/ })} placeholder="Available seats" className="input input-bordered" />
+                                                    </div>
+
+                                                    <div className="form-control w-full">
+                                                        <label className="label">
+                                                            <span className="label-text">Price</span>
+                                                        </label>
+                                                        <input defaultValue={classData.price} type="text" {...register("price", { required: true, pattern: /^[0-9]+$/ })} placeholder="Price" className="input input-bordered" />
+                                                    </div>
+                                                </div>
+
+                                                <div className="form-control w-full max-w-xs">
+                                                    <label className="label">
+                                                        <span className="label-text">Image*</span>
+
+                                                    </label>
+                                                    <img src={classData.classImage} alt="class" className='h-28 w-fit' />
+
+                                                </div>
+
+                                                {errors.availableSeats?.type === 'pattern' && (
+                                                    <p className="dark:text-red-500 text-red-500 mt-1">Please enter a valid availableSeats number</p>
+                                                )}
+                                                {errors.price?.type === 'pattern' && (
+                                                    <p className="dark:text-red-500 text-red-500 mt-1">Please enter a valid price number</p>
+                                                )}
+
+                                                <div className="form-control mt-6">
+                                                    <button className="btn btn-primary">Add</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                
+
+
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
