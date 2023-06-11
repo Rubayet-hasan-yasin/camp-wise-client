@@ -1,10 +1,11 @@
 import { BsMenuButtonWideFill } from "react-icons/bs";
 import { NavLink, Outlet } from "react-router-dom";
 import useInstructor from "../hooks/useInstructor";
+import { useAdmin } from "../hooks/useAdmin";
 const Dashboard = () => {
     const [isInstructor] = useInstructor();
+    const [isAdmin] = useAdmin();
 
-    console.log(isInstructor);
 
 
 
@@ -25,7 +26,7 @@ const Dashboard = () => {
                     {/* Sidebar content here */}
 
                     {
-                        isInstructor ||
+                        isInstructor || isAdmin ||
                         <>
                             <li>
                                 <NavLink
@@ -72,6 +73,28 @@ const Dashboard = () => {
                                     className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
                                 >
                                     My class
+                                </NavLink>
+                            </li>
+                        </>
+                    }
+
+                    {
+                        isAdmin &&
+                        <>
+                            <li>
+                                <NavLink
+                                    to={'/dashboard/admin/manage-classes'}
+                                    className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
+                                >
+                                    Manage Classes
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to={'/dashboard/admin/manage-users'}
+                                    className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
+                                >
+                                    Manage Users
                                 </NavLink>
                             </li>
                         </>
