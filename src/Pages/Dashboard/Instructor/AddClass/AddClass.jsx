@@ -24,20 +24,21 @@ const AddClass = () => {
                     availableSeats: data.availableSeats,
                     price: data.price,
                     students: 0,
+                    status: 'pending',
                     classImage: image
                 }
 
                 //post class data to db
-                axiosSecure.post('/add-class', classData)
-                .then(res=>{
-                    console.log(res);
-                    if(res.data.insertedId){
-                        toast.success('successfully added a class')
-                    }
-                })
-                .catch(err=>{
-                    console.log(err);
-                })
+                axiosSecure.post('/instructor/add-class', classData)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data.insertedId) {
+                            toast.success('successfully added a class')
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
 
             })
             .catch(err => {
@@ -86,14 +87,14 @@ const AddClass = () => {
                             <label className="label">
                                 <span className="label-text">Available seats</span>
                             </label>
-                            <input type="text" {...register("availableSeats", { required: true })} placeholder="Available seats" className="input input-bordered" />
+                            <input type="text" {...register("availableSeats", { required: true, pattern: /^[0-9]+$/ })} placeholder="Available seats" className="input input-bordered" />
                         </div>
 
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text">Price</span>
                             </label>
-                            <input type="text" {...register("price", { required: true })} placeholder="Price" className="input input-bordered" />
+                            <input type="text" {...register("price", { required: true, pattern: /^\d+(\.\d{1,2})?$/ })} placeholder="Price" className="input input-bordered" />
                         </div>
                     </div>
 
@@ -105,6 +106,13 @@ const AddClass = () => {
                         <input type="file" {...register("classImage", { required: true })} className="file-input file-input-bordered w-full max-w-xs" accept="image/*" />
 
                     </div>
+
+                    {errors.availableSeats?.type === 'pattern' && (
+                        <p className="dark:text-red-500 text-red-500 mt-1">Please enter a valid availableSeats number</p>
+                    )}
+                    {errors.price?.type === 'pattern' && (
+                        <p className="dark:text-red-500 text-red-500 mt-1">Please enter a valid price number</p>
+                    )}
 
                     <div className="form-control mt-6">
                         <button className="btn btn-primary">Add</button>
