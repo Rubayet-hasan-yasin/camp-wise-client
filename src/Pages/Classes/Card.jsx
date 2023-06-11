@@ -90,6 +90,7 @@ const Card = ({ clas }) => {
                 <h2 className="card-title text-3xl">{clas.className}</h2>
                 <p>Instructor: {clas.name}</p>
                 <p>Available seats: {clas.availableSeats}</p>
+                <p>Students: {clas.students}</p>
                 <p>Fee: ${clas.price}</p>
                 <div className="card-actions justify-end">
                     <button onClick={handleSelectButton} disabled={clas.availableSeats == 0 || exist} className="btn btn-sm">Select</button>
