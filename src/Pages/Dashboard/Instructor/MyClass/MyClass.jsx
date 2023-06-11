@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../../Provider/AuthProvider";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import ClassUpdateModal from "../../../../components/ClassUpdateModal/ClassUpdateModal";
 
 
 const MyClass = () => {
     const { user } = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
+    const [isOpen, setIsOpen] = useState(false);
 
     const { data: myClass = [] } = useQuery({
         queryKey: ['instructor-class', user?.email],
@@ -47,8 +49,10 @@ const MyClass = () => {
                                         {/* TODO: feedbak from admin */}
                                         
                                         <div className="card-actions justify-end">
-                                            <button className="btn btn-primary">Update</button>
+                                            <button onClick={()=>setIsOpen(true)} className="btn btn-primary">Update</button>
                                         </div>
+
+                                        <ClassUpdateModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                                     </div>
                                 </div>
 
