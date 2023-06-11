@@ -5,6 +5,7 @@ import { AuthContext } from "../../../Provider/AuthProvider";
 
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { saveUser } from "../../../api/saveUser";
 
 
 
@@ -18,8 +19,9 @@ const SignUpButton = () => {
     const handleGoogle = ()=> {
     
         googleSignIn()
-        .then(()=>{
+        .then(result=>{
             toast.success('Login successfull')
+            saveUser(result.user)
             navigate('/')
         })
         .catch(err=>{

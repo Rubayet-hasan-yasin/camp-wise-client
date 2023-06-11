@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 import { useParams } from "react-router-dom";
 import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PK)
 

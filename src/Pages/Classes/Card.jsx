@@ -5,10 +5,12 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
+import useInstructor from "../../hooks/useInstructor";
 
 const Card = ({ clas }) => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [isInstructor] = useInstructor()
 
 
     const { data: selectedClasses=[], refetch } = useQuery({
@@ -93,7 +95,7 @@ const Card = ({ clas }) => {
                 <p>Students: {clas.students}</p>
                 <p>Fee: ${clas.price}</p>
                 <div className="card-actions justify-end">
-                    <button onClick={handleSelectButton} disabled={clas.availableSeats == 0 || exist} className="btn btn-sm">Select</button>
+                    <button onClick={handleSelectButton} disabled={clas.availableSeats == 0 || exist || isInstructor} className="btn btn-sm">Select</button>
                 </div>
             </div>
         </div>

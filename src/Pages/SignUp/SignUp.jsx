@@ -7,6 +7,7 @@ import axios from 'axios';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import SignUpButton from '../../components/Shared/signUpButton/SignUpButton';
+import { saveUser } from '../../api/saveUser';
 
 
 const SignUp = () => {
@@ -47,6 +48,7 @@ const SignUp = () => {
                         }).then(() => {
                             // Profile updated!
                             toast.success("Registration Successful!")
+                            saveUser(user)
                             reset()
                             navigate('/')
 

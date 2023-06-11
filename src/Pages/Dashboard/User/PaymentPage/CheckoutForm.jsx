@@ -1,10 +1,11 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { AuthContext } from "../../../Provider/AuthProvider";
+
+import { AuthContext } from "../../../../Provider/AuthProvider";
 import { toast } from "react-hot-toast";
 import './CheckOutForm.css'
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 
 

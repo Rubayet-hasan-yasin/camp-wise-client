@@ -7,11 +7,13 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Instructors from "../Pages/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes";
 import Dashboard from "../Layout/Dashboard";
-import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
+import SelectedClasses from "../Pages/Dashboard/User/SelectedClasses/SelectedClasses";
 import PrivateRoutes from "./PrivateRoutes";
-import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
-import Payment from "../Pages/Dashboard/PaymentPage/Payment";
-import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import MyClasses from "../Pages/Dashboard/User/MyClasses/MyClasses";
+import Payment from "../Pages/Dashboard/User/PaymentPage/Payment";
+import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory/PaymentHistory";
+import AddClass from "../Pages/Dashboard/Instructor/AddClass/AddClass";
+import InstructorRoutes from "./InstructorRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -60,6 +62,10 @@ export const router = createBrowserRouter([
             {
                 path: 'payment-history',
                 element: <PaymentHistory/>
+            },
+            {
+                path: 'add-class',
+                element: <InstructorRoutes><AddClass/></InstructorRoutes>
             }
         ]
     }

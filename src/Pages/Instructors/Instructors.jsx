@@ -30,7 +30,7 @@ const Instructors = () => {
                             <h2 className="card-title text-3xl">{ins.name}</h2>
                             <p>{ins.email}</p>
                             <p>Number of Classes taken: 1</p>
-                            <p>Name of the Class: {ins.className}</p>
+                            {/* <p>Name of the Class: {ins.className}</p> */}
                             <div className="card-actions justify-end">
                                 
                             </div>

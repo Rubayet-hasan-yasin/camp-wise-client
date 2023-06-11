@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import { AuthContext } from "../../../Provider/AuthProvider";
+import { AuthContext } from "../../../../Provider/AuthProvider";
 import Card from "./card";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const SelectedClasses = () => {
     const { user } = useContext(AuthContext);
