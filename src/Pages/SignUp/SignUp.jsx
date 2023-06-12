@@ -8,11 +8,12 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import SignUpButton from '../../components/Shared/signUpButton/SignUpButton';
 import { saveUser } from '../../api/saveUser';
+import { GiNinjaStar } from 'react-icons/gi';
 
 
 const SignUp = () => {
     const [passShow, setPassShow] = useState(false);
-    const { registerWithEmailAndPassword } = useContext(AuthContext);
+    const { registerWithEmailAndPassword, loading } = useContext(AuthContext);
     const navigate = useNavigate()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -189,7 +190,9 @@ const SignUp = () => {
                                 </div> */}
 
                                 <div className="relative">
-                                    <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1 w-full">SignUp</button>
+                                    <button type="submit"
+                                    disabled={loading}
+                                     className="bg-blue-500 h-11 text-white rounded-md px-2 py-2 w-full disabled:bg-blue-400">{loading? <GiNinjaStar className="mx-auto animate-spin" size={24}/> : 'SignUp'}</button>
                                 </div>
                             </form >
 

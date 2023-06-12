@@ -6,14 +6,16 @@ import animation from "../../assets/login-icon.json"
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-hot-toast";
+import { GiNinjaStar } from "react-icons/gi";
 
 import SignUpButton from "../../components/Shared/signUpButton/SignUpButton";
 
 const Login = () => {
     const [passShow, setPassShow] = useState(false);
-    const {loginWithEmailAndPassword} = useContext(AuthContext);
+    const {loginWithEmailAndPassword ,loading} = useContext(AuthContext);
     const navigate = useNavigate();
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
+
 
 
     const onSubmit = data => {
@@ -81,7 +83,9 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="relative">
-                                        <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1 w-full">Login</button>
+                                        <button type="submit" 
+                                        disabled={loading}
+                                        className="bg-blue-500 h-11 text-white rounded-md px-2 py-2 w-full disabled:bg-blue-400">{loading? <GiNinjaStar className="mx-auto animate-spin" size={24}/> : 'Login'}</button>
                                     </div>
                                 </form >
 

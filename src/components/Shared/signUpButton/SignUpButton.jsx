@@ -12,7 +12,7 @@ import { saveUser } from "../../../api/saveUser";
 
 
 const SignUpButton = () => {
-    const {googleSignIn} = useContext(AuthContext);
+    const {googleSignIn, setLoading} = useContext(AuthContext);
     const navigate = useNavigate();
 
 
@@ -26,6 +26,7 @@ const SignUpButton = () => {
         })
         .catch(err=>{
             toast.error(err.message)
+            setLoading(false)
         })
     }
 
