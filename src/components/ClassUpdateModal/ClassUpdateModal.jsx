@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 
 
 
-const ClassUpdateModal = ({ isOpen, setIsOpen, classData }) => {
+const ClassUpdateModal = ({ isOpen, setIsOpen, classData, refetch }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const {user} = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
@@ -31,6 +31,7 @@ const ClassUpdateModal = ({ isOpen, setIsOpen, classData }) => {
             if(res.data.acknowledged){
                 toast.success('succesfully updated')
                 setIsOpen(false)
+                refetch()
             }
         })
     }

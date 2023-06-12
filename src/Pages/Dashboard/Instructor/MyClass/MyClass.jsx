@@ -10,7 +10,7 @@ const MyClass = () => {
     const [axiosSecure] = useAxiosSecure();
     const [isOpen, setIsOpen] = useState(false);
 
-    const { data: myClass = [] } = useQuery({
+    const { data: myClass = [], refetch } = useQuery({
         queryKey: ['instructor-class', user?.email],
         enabled: !!user.email,
         queryFn: async () => {
@@ -46,6 +46,9 @@ const MyClass = () => {
                                             <p>Available seats: {clas.availableSeats}</p>
                                             <p>Total Students: {clas.students}</p>
                                             <p>Price: ${clas.price}</p>
+                                            {
+                                                clas?.feedBack && <p>Admin FeedBack: {clas.feedBack}</p>
+                                            }
 
                                             {/* TODO: feedbak from admin */}
 
@@ -57,6 +60,7 @@ const MyClass = () => {
                                                 isOpen={isOpen}
                                                 setIsOpen={setIsOpen}
                                                 classData={clas}
+                                                refetch={refetch}
                                             />
                                         </div>
                                     </div>
