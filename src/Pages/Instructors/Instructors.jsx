@@ -1,21 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loader from "../../components/Shared/Loader/Loader";
 
 
 const Instructors = () => {
-    const [instructor, setInstructor] = useState([]);
+    // const [instructor, setInstructor] = useState([]);
     
 
 
-    useEffect(() => {
-        axios.get('https://camp-wise-server.vercel.app/instructor')
-            .then(res => {
+    // useEffect(() => {
+    //     axios.get('https://camp-wise-server.vercel.app/instructor')
+    //         .then(res => {
     
-                setInstructor(res.data)
-            })
-    }, [])
+    //             setInstructor(res.data)
+    //         })
+    // }, [])
 
-    console.log(instructor);
+    const {data: instructor=[], isLoading } = useQuery({
+        queryKey: ['all-instructor'],
+        queryFn: async()=>{
+            const res = await axios('https://camp-wise-server.vercel.app/instructor')
+            return res.data;
+        }
+    })
+
+
+    if(isLoading){
+        return <Loader/>
+    }
+
+
+
 
     return (
         <section className="container mx-auto my-20 md:px-4">

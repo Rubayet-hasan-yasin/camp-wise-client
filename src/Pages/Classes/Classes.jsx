@@ -1,22 +1,14 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Card from "./card";
+import Loader from "../../components/Shared/Loader/Loader";
 
 
 
 const Classes = () => {
-    
-    
-    // useEffect(() => {
-    //     axios.get('https://camp-wise-server.vercel.app/classes')
-    //         .then(res => {
-    //             console.log(res);
-    //             setClasses(res.data)
-    //         })
-    // }, [])
 
 
-    const { data: classes=[] } = useQuery({
+    const { data: classes=[], isLoading } = useQuery({
         queryKey: ['classes'],
         queryFn: async () => {
             const classes = await axios('https://camp-wise-server.vercel.app/classes');
@@ -27,6 +19,10 @@ const Classes = () => {
         }
     })
 
+
+    if(isLoading){
+        return <Loader/>
+    }
     
 
     return (
