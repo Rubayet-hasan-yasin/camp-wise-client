@@ -6,6 +6,7 @@ import Card from "./card";
 
 const Classes = () => {
     
+    
     // useEffect(() => {
     //     axios.get('https://camp-wise-server.vercel.app/classes')
     //         .then(res => {
@@ -25,6 +26,8 @@ const Classes = () => {
             return classes.data;
         }
     })
+
+    
 
     return (
         <section className="container mx-auto my-20 md:px-4">

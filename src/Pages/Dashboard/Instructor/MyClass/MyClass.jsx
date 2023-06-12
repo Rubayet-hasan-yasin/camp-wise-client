@@ -3,6 +3,7 @@ import { AuthContext } from "../../../../Provider/AuthProvider";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import ClassUpdateModal from "../../../../components/ClassUpdateModal/ClassUpdateModal";
+import { motion } from "framer-motion"
 
 
 const MyClass = () => {
@@ -32,42 +33,53 @@ const MyClass = () => {
                 <div className="mt-8 w-[80vw] flex flex-col items-center gap-10">
                     {
                         myClass?.map(clas => (
+                            <motion.div
+                                key={clas._id}
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 20
+                                }}
+                            >
+                                <div className="indicator">
+                                    <span className="indicator-item badge badge-primary">{clas.status}</span>
+                                    <div className="grid w-full place-items-center">
+                                        {/* content start */}
+                                        <div className="card lg:card-side w-[60vw] bg-base-100 dark:bg-transparent dark:border shadow-xl">
+                                            <figure className="w-1/3">
+                                                <img src={clas.classImage} alt="class image" className="object-cover h-full" />
+                                            </figure>
+                                            <div className="card-body">
+                                                <h2 className="card-title text-3xl font-bold">{clas.className}</h2>
+                                                <p>Available seats: {clas.availableSeats}</p>
+                                                <p>Total Students: {clas.students}</p>
+                                                <p>Price: ${clas.price}</p>
+                                                {
+                                                    clas?.feedBack && <p>Admin FeedBack: {clas.feedBack}</p>
+                                                }
 
-                            <div key={clas._id} className="indicator">
-                                <span className="indicator-item badge badge-primary">{clas.status}</span>
-                                <div className="grid w-full place-items-center">
-                                    {/* content start */}
-                                    <div className="card lg:card-side w-[60vw] bg-base-100 dark:bg-transparent dark:border shadow-xl">
-                                        <figure className="w-1/3">
-                                            <img src={clas.classImage} alt="class image" className="object-cover h-full" />
-                                        </figure>
-                                        <div className="card-body">
-                                            <h2 className="card-title text-3xl font-bold">{clas.className}</h2>
-                                            <p>Available seats: {clas.availableSeats}</p>
-                                            <p>Total Students: {clas.students}</p>
-                                            <p>Price: ${clas.price}</p>
-                                            {
-                                                clas?.feedBack && <p>Admin FeedBack: {clas.feedBack}</p>
-                                            }
+                                                {/* TODO: feedbak from admin */}
 
-                                            {/* TODO: feedbak from admin */}
+                                                <div className="card-actions justify-end">
+                                                    <button onClick={() => setIsOpen(true)} className="btn btn-primary">Update</button>
+                                                </div>
 
-                                            <div className="card-actions justify-end">
-                                                <button onClick={() => setIsOpen(true)} className="btn btn-primary">Update</button>
+                                                <ClassUpdateModal
+                                                    isOpen={isOpen}
+                                                    setIsOpen={setIsOpen}
+                                                    classData={clas}
+                                                    refetch={refetch}
+                                                />
                                             </div>
-
-                                            <ClassUpdateModal
-                                                isOpen={isOpen}
-                                                setIsOpen={setIsOpen}
-                                                classData={clas}
-                                                refetch={refetch}
-                                            />
                                         </div>
-                                    </div>
 
-                                    {/* content end */}
+                                        {/* content end */}
+                                    </div>
                                 </div>
-                            </div>))
+                            </motion.div>
+                        ))
                     }
                 </div>
             </div>

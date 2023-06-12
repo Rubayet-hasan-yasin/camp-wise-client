@@ -6,11 +6,13 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import useInstructor from "../../hooks/useInstructor";
+import { useAdmin } from "../../hooks/useAdmin";
 
 const Card = ({ clas }) => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [isInstructor] = useInstructor()
+    const [isInstructor] = useInstructor();
+    const [isAdmin] = useAdmin();
 
 
     const { data: selectedClasses=[], refetch } = useQuery({
@@ -29,7 +31,7 @@ const Card = ({ clas }) => {
 
     const exist = selectedClasses.find(select=> select.classId == clas._id);
 
-    
+   
 
 
 
@@ -37,7 +39,7 @@ const Card = ({ clas }) => {
     const handleSelectButton = () => {
         if (!user) {
             Swal.fire({
-                title: 'log in before selecting the course',
+                title: 'Login before selecting the class',
 
                 icon: 'warning',
                 showCancelButton: true,
@@ -95,8 +97,16 @@ const Card = ({ clas }) => {
                 <p>Students: {clas.students}</p>
                 <p>Fee: ${clas.price}</p>
                 <div className="card-actions justify-end">
-                    <button onClick={handleSelectButton} disabled={clas.availableSeats == 0 || exist || isInstructor} className="btn btn-sm">Select</button>
+
+
+                    <button
+                     onClick={handleSelectButton} 
+                     disabled={clas.availableSeats == 0 || exist || isInstructor || isAdmin} className="btn btn-sm dark:bg-slate-200">Select</button>
+
+
                 </div>
+
+
             </div>
         </div>
     );

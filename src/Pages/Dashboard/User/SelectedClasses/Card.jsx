@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion"
 
 
 const Card = ({ selectedClass, selectedClassRefetch }) => {
@@ -41,7 +41,15 @@ const Card = ({ selectedClass, selectedClassRefetch }) => {
     }
 
     return (
-        <div>
+        <motion.div
+            initial={{ scale: 0 }}
+            animate={{ rotate: 360, scale: 1 }}
+            transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20
+            }}
+        >
             <div className={`${selectedClass.availableSeats == 0 && "bg-red-600 dark:bg-red-600"} card w-96 bg-base-100 dark:bg-transparent dark:border border shadow-xl`}>
                 <figure className="h-64">
                     <img src={selectedClass.classImage} alt="profile" className="object-cover w-full" />
@@ -61,8 +69,9 @@ const Card = ({ selectedClass, selectedClassRefetch }) => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+            </motion.div >
+
+            );
 };
 
-export default Card;
+            export default Card;

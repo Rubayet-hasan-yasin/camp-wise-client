@@ -10,12 +10,12 @@ const Instructors = () => {
     useEffect(() => {
         axios.get('https://camp-wise-server.vercel.app/instructor')
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 setInstructor(res.data)
             })
     }, [])
 
-    console.log();
+    // console.log();
 
     return (
         <section className="container mx-auto my-20 md:px-4">
