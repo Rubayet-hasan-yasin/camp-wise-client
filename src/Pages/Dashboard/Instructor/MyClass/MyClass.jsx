@@ -29,7 +29,7 @@ const MyClass = () => {
                     <h2 className="text-4xl font-bold">My Class</h2>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-8 w-[80vw] flex flex-col items-center gap-10">
                     {
                         myClass?.map(clas => (
 

@@ -9,7 +9,7 @@ const AddClass = () => {
     const { user } = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         console.log(data)
@@ -34,6 +34,7 @@ const AddClass = () => {
                         console.log(res);
                         if (res.data.insertedId) {
                             toast.success('successfully added a class')
+                            reset()
                         }
                     })
                     .catch(err => {
