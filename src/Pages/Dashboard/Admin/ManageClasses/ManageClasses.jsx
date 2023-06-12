@@ -1,9 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import DeclineModal from "../../../../components/DeclineModal/DeclineModal";
 
 const ManageClasses = () => {
     const [axiosSecure] = useAxiosSecure();
+    const [openModal, setOpenModal] = useState(false);
+    const [classId, setClassId] = useState('');
+
 
 
     const { data: allClasses = [], refetch } = useQuery({
@@ -15,16 +20,17 @@ const ManageClasses = () => {
         }
     })
 
-const handleApproved = id =>{
-    
-    axiosSecure.put(`/update-class-status/${id}`)
-    .then(res=>{
-        refetch()
-        if(res.data?.modifiedCount){
-            toast.success('class approved')
-        }
-    })
-}
+    const handleApproved = id => {
+        console.log(id);
+
+        axiosSecure.put(`/update-class-status/${id}`)
+            .then(res => {
+                refetch()
+                if (res.data?.modifiedCount) {
+                    toast.success('class approved')
+                }
+            })
+    }
 
 
 
@@ -45,32 +51,47 @@ const handleApproved = id =>{
                                     <p>Available seats: {classs.availableSeats}</p>
                                     <p>Total Students: {classs.students}</p>
                                     <p>Price: ${classs.price}</p>
+                                    
 
-                                    {/* TODO: feedbak from admin */}
+                                    
 
                                     <div className="card-actions justify-end">
                                         <button
-                                        onClick={()=>handleApproved(classs._id)}
-                                            disabled={classs.status === 'approved'}
+                                            onClick={() => handleApproved(classs._id)}
+                                            disabled={classs.status === 'approved' || classs.status === 'declined'}
                                             className="btn btn-primary"
                                         >Approve</button>
 
 
-                                        <button 
-                                        disabled={classs.status === 'approved' || classs.status === 'decline'}
-                                        className="btn"
+
+                                        <button
+                                            onClick={() => {
+                                                setOpenModal(true)
+                                                setClassId(classs._id)
+                                            }}
+                                            disabled={classs.status === 'approved' || classs.status === 'declined'}
+                                            className="btn"
+
                                         >Decline and feedback</button>
+
                                     </div>
-
-
                                 </div>
+
                             </div>
 
                             {/* content end */}
+
                         </div>
                     </div>
                 ))
             }
+
+            <DeclineModal
+                classId={classId}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+                refetch={refetch}
+            />
         </div>
     );
 };

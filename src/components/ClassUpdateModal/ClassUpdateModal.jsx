@@ -13,7 +13,7 @@ const ClassUpdateModal = ({ isOpen, setIsOpen, classData }) => {
     const [axiosSecure] = useAxiosSecure();
     
 
-    
+    console.log('form update',classData);
 
     const onSubmit = data => {
         // console.log(data);
