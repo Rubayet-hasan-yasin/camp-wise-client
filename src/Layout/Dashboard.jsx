@@ -2,9 +2,12 @@ import { BsMenuButtonWideFill } from "react-icons/bs";
 import { NavLink, Outlet } from "react-router-dom";
 import useInstructor from "../hooks/useInstructor";
 import { useAdmin } from "../hooks/useAdmin";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 const Dashboard = () => {
     const [isInstructor] = useInstructor();
     const [isAdmin] = useAdmin();
+    const {user} = useContext(AuthContext);
 
 
 
@@ -104,30 +107,35 @@ const Dashboard = () => {
 
                     <div className="divider"></div>
 
-                    <li>
-                        <NavLink
-                            to={'/'}
-                            className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
-                        >
-                            Home
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to={'/instructors'}
-                            className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
-                        >
-                            Instructors
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to={'/classes'}
-                            className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
-                        >
-                            Classes
-                        </NavLink>
-                    </li>
+                    {
+                        user &&
+                        <>
+                            <li>
+                                <NavLink
+                                    to={'/'}
+                                    className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
+                                >
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to={'/instructors'}
+                                    className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
+                                >
+                                    Instructors
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to={'/classes'}
+                                    className={({ isActive }) => (isActive ? 'D-Active' : 'D-Default')}
+                                >
+                                    Classes
+                                </NavLink>
+                            </li>
+                        </>
+                    }
 
                 </ul>
 
