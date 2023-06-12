@@ -25,7 +25,8 @@ const AddClass = () => {
                     price: parseInt(data.price),
                     students: 0,
                     status: 'pending',
-                    classImage: image
+                    classImage: image,
+                    profile: user.photoURL
                 }
 
                 //post class data to db

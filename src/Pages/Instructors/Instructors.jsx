@@ -10,12 +10,12 @@ const Instructors = () => {
     useEffect(() => {
         axios.get('https://camp-wise-server.vercel.app/instructor')
             .then(res => {
-                // console.log(res);
+    
                 setInstructor(res.data)
             })
     }, [])
 
-    // console.log();
+    console.log(instructor);
 
     return (
         <section className="container mx-auto my-20 md:px-4">
@@ -29,6 +29,7 @@ const Instructors = () => {
                         <div className="card-body">
                             <h2 className="card-title text-3xl">{ins.name}</h2>
                             <p>{ins.email}</p>
+                            <p>Students:{ins.students}</p>
                             <p>Number of Classes taken: 1</p>
                             {/* <p>Name of the Class: {ins.className}</p> */}
                             <div className="card-actions justify-end">

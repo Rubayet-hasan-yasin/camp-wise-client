@@ -13,7 +13,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        axios.get('https://camp-wise-server.vercel.app/instructor')
+        axios.get('https://camp-wise-server.vercel.app/home/instructor')
             .then(res => {
                 
                 setInstructors(res.data)
