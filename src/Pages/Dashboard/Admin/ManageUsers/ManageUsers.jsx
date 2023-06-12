@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { toast } from "react-hot-toast";
+
 
 const ManageUsers = () => {
     const [axiosSecure] = useAxiosSecure();
 
-    const { data: allUsers = [] } = useQuery({
+
+    const { data: allUsers = [], refetch } = useQuery({
         queryKey: ['all-user'],
         queryFn: async () => {
             const res = await axiosSecure('/all-users');
@@ -13,16 +16,30 @@ const ManageUsers = () => {
         }
     })
 
+    const handleMakeAdmin = id =>{
+        console.log(id);
+
+        axiosSecure.put(`/make-admin/${id}`)
+        .then(res=>{
+            console.log(res);
+            if(res.data.acknowledged){
+                toast.success('this user now an admin');
+                refetch()
+            }
+        })
+    }
+
 
     return (
         <div className="overflow-x-auto">
-            <table className="table">
-                <thead>
-                    <tr>
+            <table className="table bg-slate-100 text-center">
+                <thead className="rounded-3xl h-14 text-lg">
+                    <tr className="bg-slate-300 rounded-3xl">
                         <th>
                         </th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Make Admin</th>
                         <th>Make Instructor</th>
                     </tr>
@@ -30,7 +47,7 @@ const ManageUsers = () => {
                 <tbody>
                     {
                         allUsers.map((user, i) => (
-                            <tr key={user._id}>
+                            <tr key={user._id} className="border-gray-200 border-b-4">
                                 <th>
                                     {i + 1}
                                 </th>
@@ -49,11 +66,15 @@ const ManageUsers = () => {
                                 <td>
                                     {user.email}
                                 </td>
+                                <td>{user.role ? user.role : 'student'}</td>
                                 <td>
-                                    <button className="btn btn-primary btn-xs">Admin</button>
+                                    <button
+                                    onClick={()=>handleMakeAdmin(user._id)}
+                                        disabled={user.role === 'admin'}
+                                        className="btn btn-primary btn-xs">Admin</button>
                                 </td>
                                 <th>
-                                    <button className="btn bg-gray-600 text-white btn-xs">Instructor</button>
+                                    <button disabled={user.role === 'admin' || user.role === 'instructor'} className="btn bg-gray-600 text-white btn-xs">Instructor</button>
                                 </th>
                             </tr>
                         ))
