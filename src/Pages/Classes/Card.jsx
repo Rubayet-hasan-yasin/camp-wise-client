@@ -18,7 +18,7 @@ const Card = ({ clas }) => {
         enabled: !!user,
         queryFn: async () => {
             
-            const selectedClasses = await axios(`http://localhost:5000/selected-class?email=${user.email}`);
+            const selectedClasses = await axios(`https://camp-wise-server.vercel.app/selected-class?email=${user.email}`);
 
             
 
@@ -67,7 +67,7 @@ const Card = ({ clas }) => {
         }
 
 
-        axios.post(`http://localhost:5000/selected-classes`, selectedClass)
+        axios.post(`https://camp-wise-server.vercel.app/selected-classes`, selectedClass)
             .then(res => {
                 console.log(res.data);
                 if (res.data.acknowledged == true) {

@@ -7,7 +7,7 @@ import Card from "./card";
 const Classes = () => {
     
     // useEffect(() => {
-    //     axios.get('http://localhost:5000/classes')
+    //     axios.get('https://camp-wise-server.vercel.app/classes')
     //         .then(res => {
     //             console.log(res);
     //             setClasses(res.data)
@@ -18,7 +18,7 @@ const Classes = () => {
     const { data: classes=[] } = useQuery({
         queryKey: ['classes'],
         queryFn: async () => {
-            const classes = await axios('http://localhost:5000/classes');
+            const classes = await axios('https://camp-wise-server.vercel.app/classes');
 
         
 

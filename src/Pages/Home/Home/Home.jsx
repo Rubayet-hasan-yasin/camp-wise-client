@@ -13,12 +13,12 @@ const Home = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/instructor')
+        axios.get('https://camp-wise-server.vercel.app/instructor')
             .then(res => {
                 
                 setInstructors(res.data)
             })
-        axios.get('http://localhost:5000/popular-class')
+        axios.get('https://camp-wise-server.vercel.app/popular-class')
             .then(res => {
                 
                 setPopularClass(res.data)

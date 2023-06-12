@@ -40,7 +40,7 @@ const AuthProvider = ({children}) => {
             
 
             if(user){
-                axios.post(`http://localhost:5000/jwt`, {email: user.email})
+                axios.post(`https://camp-wise-server.vercel.app/jwt`, {email: user.email})
                 .then(res=>{
                     const token = res.data.token;
                     localStorage.setItem('token', token);

@@ -14,7 +14,7 @@ const SelectedClasses = () => {
         enabled: !!user,
         queryFn: async () => {
 
-            const selectedClasses = await axiosSecure(`http://localhost:5000/selected-class?email=${user.email}`);
+            const selectedClasses = await axiosSecure(`https://camp-wise-server.vercel.app/selected-class?email=${user.email}`);
 
 
 

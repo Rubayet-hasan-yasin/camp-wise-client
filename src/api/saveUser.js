@@ -6,6 +6,6 @@ export const saveUser = user =>{
     const photoURL = user?.photoURL;
 
     const saveuser = {email, name, photoURL};
-    axios.put(`http://localhost:5000/user/${user?.email}`, saveuser)
+    axios.put(`https://camp-wise-server.vercel.app/user/${user?.email}`, saveuser)
     .then(res=> console.log(res))
 }

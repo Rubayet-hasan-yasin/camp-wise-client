@@ -16,19 +16,30 @@ const ManageUsers = () => {
         }
     })
 
-    const handleMakeAdmin = id =>{
+    const handleMakeAdmin = id => {
         console.log(id);
 
         axiosSecure.put(`/make-admin/${id}`)
+            .then(res => {
+                console.log(res);
+                if (res.data.acknowledged) {
+                    toast.success('This user now an admin');
+                    refetch()
+                }
+            })
+    }
+
+
+    const handleMakeInstructor = id =>{
+        axiosSecure.put(`/make-instructor/${id}`)
         .then(res=>{
-            console.log(res);
+            console.log(res)
             if(res.data.acknowledged){
-                toast.success('this user now an admin');
+                toast.success('This user now an instructor');
                 refetch()
             }
         })
     }
-
 
     return (
         <div className="overflow-x-auto">
@@ -69,12 +80,16 @@ const ManageUsers = () => {
                                 <td>{user.role ? user.role : 'student'}</td>
                                 <td>
                                     <button
-                                    onClick={()=>handleMakeAdmin(user._id)}
+                                        onClick={() => handleMakeAdmin(user._id)}
                                         disabled={user.role === 'admin'}
                                         className="btn btn-primary btn-xs">Admin</button>
                                 </td>
                                 <th>
-                                    <button disabled={user.role === 'admin' || user.role === 'instructor'} className="btn bg-gray-600 text-white btn-xs">Instructor</button>
+                                    <button
+                                    onClick={()=>handleMakeInstructor(user._id)}
+                                        disabled={user.role === 'admin' || user.role === 'instructor'}
+                                        className="btn bg-gray-600 text-white btn-xs"
+                                    >Instructor</button>
                                 </th>
                             </tr>
                         ))

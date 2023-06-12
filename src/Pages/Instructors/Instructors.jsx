@@ -8,7 +8,7 @@ const Instructors = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/instructor')
+        axios.get('https://camp-wise-server.vercel.app/instructor')
             .then(res => {
                 console.log(res);
                 setInstructor(res.data)

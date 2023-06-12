@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://camp-wise-server.vercel.app'
 })
 
 const useAxiosSecure = () => {
