@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 
 const Event = () => {
     const calculateTimeLeft = () => {
-        const targetDate = new Date('2023-08-27'); // Set the target date (format: YYYY-MM-DD)
+        const today = new Date()
+
+        today.setDate(today.getDate() + 12);
+
+        const date = today.toISOString().split('T')[0]
+
+
+        console.log(today);
+        const targetDate = new Date(date); // Set the target date (format: YYYY-MM-DD)
         const currentTime = new Date().getTime();
         const difference = targetDate - currentTime;
 
