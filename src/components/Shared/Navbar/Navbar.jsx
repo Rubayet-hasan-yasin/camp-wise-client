@@ -8,14 +8,19 @@ import { toast } from "react-hot-toast";
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isDark, setIsDark] = useState(false);
+
+    const [isDark, setIsDark] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches);
+
     const { user, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // console.log(user);
 
 
     useEffect(() => {
+
+        console.log();
+        
+
         if (isDark) {
             document.documentElement.classList.add("dark");
         }
@@ -112,7 +117,7 @@ const Navbar = () => {
     </>
 
     return (
-        <nav className="bg-base-300 dark:bg-gray-800">
+        <nav className="bg-white dark:bg-gray-800">
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">

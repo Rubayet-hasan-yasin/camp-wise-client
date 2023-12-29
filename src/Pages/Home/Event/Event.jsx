@@ -9,7 +9,6 @@ const Event = () => {
         const date = today.toISOString().split('T')[0]
 
 
-        console.log(today);
         const targetDate = new Date(date); // Set the target date (format: YYYY-MM-DD)
         const currentTime = new Date().getTime();
         const difference = targetDate - currentTime;
